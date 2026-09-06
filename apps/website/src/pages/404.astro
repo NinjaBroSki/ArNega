@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { withBase } from '../lib/site';
+---
+
+<Base title="Page not found — ArNega" description="This page doesn’t exist." path="404">
+  <Nav home={false} />
+  <main class="container prose" style="text-align: center;">
+    <h1>404</h1>
+    <p>This page doesn’t exist — but the answer you’re looking for might be one keystroke away.</p>
+    <p style="margin-top: 28px;">
+      <a class="btn btn-secondary" href={withBase('')}>Back to ArNega</a>
+    </p>
+  </main>
+  <Footer home={false} />
+</Base>

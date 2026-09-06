@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Privacy — ArNega"
+  description="How ArNega handles your screen: captures are processed in memory and sent only to local Ollama. No accounts, no telemetry, no analytics."
+  path="privacy"
+>
+  <Nav home={false} />
+  <main class="container prose">
+    <h1>Privacy</h1>
+    <p class="updated">Applies to ArNega for macOS v0.1.x and this website.</p>
+
+    <h2>The short version</h2>
+    <p>
+      ArNega is built so that your screen content stays on your Mac. Screen analysis is performed
+      by a model running locally through Ollama. ArNega has no accounts, no telemetry, no
+      analytics, and no cloud AI integration.
+    </p>
+
+    <h2>Screen captures</h2>
+    <ul>
+      <li>
+        A capture happens only when you trigger it (pressing Enter while ArNega is focused).
+      </li>
+      <li>
+        The primary capture path processes the image entirely in memory: capture → optimize → send
+        to Ollama at <code>127.0.0.1:11434</code> → discard. Captures are not saved to disk by
+        this path.
+      </li>
+      <li>
+        If the primary capture method fails, a fallback uses the macOS
+        <code>screencapture</code> utility, which briefly writes a temporary file that ArNega
+        deletes immediately after reading it.
+      </li>
+      <li>Answers are kept in memory for the current session only and are not persisted.</li>
+    </ul>
+
+    <h2>What ArNega stores locally</h2>
+    <p>ArNega creates exactly one file of its own:</p>
+    <ul>
+      <li>
+        <code>~/Library/Application Support/ArNega/settings.json</code> — your preferences (model
+        choice, answer style, shortcut, overlay position). “Clear local state” in Settings deletes
+        it.
+      </li>
+    </ul>
+    <p>
+      Like every macOS app with a web-based interface, the system may also keep standard cache
+      files inside the same folder. None of them contain your captures or answers.
+    </p>
+
+    <h2>Network access</h2>
+    <ul>
+      <li>
+        All AI inference traffic goes to the local Ollama server on your machine
+        (<code>127.0.0.1:11434</code>) — never to a cloud AI endpoint.
+      </li>
+      <li>
+        The only external connections are ones you explicitly trigger, such as clicking the link
+        to Ollama’s download page, and the model download that you approve, which Ollama itself
+        performs from its own registry.
+      </li>
+      <li>ArNega contains no update pings, crash reporting, or telemetry of any kind.</li>
+    </ul>
+
+    <h2>This website</h2>
+    <ul>
+      <li>Static pages, served from GitHub Pages. No analytics, no tracking pixels, no cookies.</li>
+      <li>No cookie banner is shown because there is nothing to consent to.</li>
+      <li>
+        Downloads are served by GitHub Releases; GitHub’s own
+        <a class="link-accent" href="https://docs.github.com/site-policy/privacy-policies" target="_blank" rel="noopener">privacy policy</a>
+        applies to requests made to their servers.
+      </li>
+    </ul>
+
+    <h2>What we can’t promise</h2>
+    <p>
+      ArNega runs on top of macOS, Electron, and Ollama. Those platforms have their own behavior —
+      for example, the operating system may perform its own network activity, and Ollama manages
+      its model files under <code>~/.ollama</code>. ArNega’s promise is precise: its own
+      application logic never sends your screen content anywhere except local Ollama.
+    </p>
+  </main>
+  <Footer home={false} />
+</Base>

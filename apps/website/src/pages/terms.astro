@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Terms — ArNega"
+  description="Draft terms of use for the ArNega desktop application and website."
+  path="terms"
+>
+  <Nav home={false} />
+  <main class="container prose">
+    <h1>Terms of use</h1>
+    <p class="updated">Draft — v0.1</p>
+
+    <p class="notice">
+      This is a developer-provided starter document, not professional legal advice. It will be
+      refined as the project matures.
+    </p>
+
+    <h2>Acceptance</h2>
+    <p>
+      By downloading or using the ArNega application or this website, you agree to these terms. If
+      you don’t agree, don’t use them.
+    </p>
+
+    <h2>The software</h2>
+    <ul>
+      <li>ArNega is provided free of charge for personal use on your own devices.</li>
+      <li>
+        The source code’s license status is stated in the repository; “free to download” does not
+        by itself grant redistribution or commercial-use rights beyond what the repository license
+        (once chosen) specifies.
+      </li>
+      <li>
+        ArNega depends on third-party software you install separately — notably Ollama and the AI
+        models it downloads — each governed by its own license terms.
+      </li>
+    </ul>
+
+    <h2>No warranty</h2>
+    <p>
+      ArNega is provided <strong>“as is”, without warranty of any kind</strong> — express or
+      implied — including fitness for a particular purpose. AI-generated answers can be wrong;
+      you are responsible for verifying anything you rely on.
+    </p>
+
+    <h2>Limitation of liability</h2>
+    <p>
+      To the maximum extent permitted by law, the ArNega developers shall not be liable for any
+      damages arising from the use of, or inability to use, the software or website — including
+      decisions made based on AI answers, data loss, or consequences of violating rules that apply
+      to you.
+    </p>
+
+    <h2>Acceptable use</h2>
+    <p>
+      You agree to use ArNega in compliance with applicable laws and the rules that bind you (see
+      <a class="link-accent" href="responsible-use">responsible use</a>), and not to use it to
+      infringe others’ rights.
+    </p>
+
+    <h2>Changes</h2>
+    <p>
+      These terms may be updated alongside new releases; the version published with the current
+      release applies.
+    </p>
+  </main>
+  <Footer home={false} />
+</Base>

@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base
+  title="Responsible use — ArNega"
+  description="ArNega is a general screen productivity and learning assistant. Users are responsible for complying with the rules that apply to them."
+  path="responsible-use"
+>
+  <Nav home={false} />
+  <main class="container prose">
+    <h1>Responsible use</h1>
+    <p class="updated">Please read this before relying on ArNega.</p>
+
+    <h2>What ArNega is</h2>
+    <p>
+      ArNega is a general-purpose screen productivity and learning assistant. It’s built for
+      moments like working through practice problems, understanding unfamiliar code, digesting
+      dense documents, and getting unstuck faster — with the privacy advantage that analysis runs
+      on your own machine.
+    </p>
+
+    <h2>Your responsibilities</h2>
+    <p>Using an AI assistant doesn’t change the rules around you. You are responsible for complying with:</p>
+    <ul>
+      <li><strong>Examination and academic-integrity rules</strong> — many exams and courses prohibit outside assistance.</li>
+      <li><strong>Interview and assessment rules</strong> — employers may require unassisted work.</li>
+      <li><strong>Workplace policies</strong> — including rules about the tools you may run on work machines.</li>
+      <li><strong>Confidentiality obligations</strong> — what appears on your screen may be covered by NDAs or data-handling policies.</li>
+      <li><strong>Software and service terms</strong> — of the apps and sites whose content you analyze.</li>
+    </ul>
+
+    <h2>What ArNega is not</h2>
+    <ul>
+      <li>
+        It is <strong>not</strong> designed or marketed to evade proctoring software, anti-cheat
+        systems, or monitoring tools, and we make no claims that it is invisible to them.
+      </li>
+      <li>
+        It is <strong>not</strong> a source of guaranteed-correct answers. Local models make
+        mistakes; verify anything that matters.
+      </li>
+      <li>It is <strong>not</strong> a substitute for your own judgment or expertise.</li>
+    </ul>
+
+    <h2>A note on capture privacy</h2>
+    <p>
+      ArNega asks macOS to exclude its overlay from ordinary screen capture using supported window
+      content-protection APIs. This is best-effort behavior for everyday comfort (e.g. not
+      cluttering your own recordings) — it is not a guarantee, and capture behavior varies by
+      macOS version and capture method.
+    </p>
+  </main>
+  <Footer home={false} />
+</Base>

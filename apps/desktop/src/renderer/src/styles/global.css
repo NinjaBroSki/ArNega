@@ -29,6 +29,11 @@ body[data-view='overlay'] {
   background: rgba(9, 11, 15, 0.6);
 }
 
+/* In a plain browser (mock/dev QA) there is no vibrancy — use a solid ground. */
+body[data-view='overlay'].mock {
+  background: #0e1117;
+}
+
 /* Settings is a normal opaque window. */
 body[data-view='settings'] {
   background: var(--an-ink-1);

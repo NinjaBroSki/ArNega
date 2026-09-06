@@ -198,6 +198,7 @@ export function installMockApi(): void {
   };
 
   (window as unknown as { arnega: ArnegaApi }).arnega = api;
+  document.body.classList.add('mock');
 
   // Auto-play a generation for the answer scenarios.
   if (scenario.startsWith('answer')) {

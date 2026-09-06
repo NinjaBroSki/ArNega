@@ -1,0 +1,461 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { HeroDemo } from '../components/demo/HeroDemo';
+import { ProductDemo } from '../components/demo/ProductDemo';
+import { links, MODEL, OLLAMA_URL, SITE, VERSION } from '../lib/site';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ArNega',
+  operatingSystem: 'macOS 12.0 or later (Apple Silicon)',
+  applicationCategory: 'UtilitiesApplication',
+  description: SITE.description,
+  softwareVersion: VERSION,
+  downloadUrl: links.primaryDmg,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+---
+
+<Base structuredData={structuredData}>
+  <Nav home />
+
+  <!-- ================================ HERO ================================ -->
+  <header class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="container" style="position: relative;">
+      <div class="hero-eyebrow">Local screen intelligence</div>
+      <h1 class="hero-title">
+        See it. Press Enter.<br />
+        <span class="accent">Get the answer.</span>
+      </h1>
+      <p class="hero-sub">
+        ArNega analyzes what’s on your screen using AI that runs locally on your Mac.
+        No API keys. No subscriptions. No per-question bill.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href={links.primaryDmg}>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M2.5 13.5h11"></path>
+          </svg>
+          Download for Mac
+        </a>
+        <a class="btn btn-secondary" href={links.source} target="_blank" rel="noopener">
+          View on GitHub
+        </a>
+      </div>
+      <div class="hero-support">
+        Apple Silicon <span class="dot">·</span> Local AI <span class="dot">·</span> Free to use
+      </div>
+      <div class="hero-demo-wrap">
+        <div class="hero-demo-glow" aria-hidden="true"></div>
+        <HeroDemo client:load />
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================ HOW IT WORKS ============================ -->
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-eyebrow">How it works</p>
+          <h2 class="section-title">One key. The whole workflow.</h2>
+          <p class="section-lede">
+            No prompt writing, no copying and pasting, no uploading screenshots. When ArNega is
+            focused, Enter does everything.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <h3>See it</h3>
+            <p>
+              A question, a bug, a chart — anything on screen. ArNega captures the display the
+              moment you ask.
+            </p>
+          </div>
+          <div class="step reveal" style="transition-delay: 90ms;">
+            <h3>Press <span class="step-kbd">↵</span></h3>
+            <p>No prompt engineering or pasting. One keystroke captures, reads, and reasons.</p>
+          </div>
+          <div class="step reveal" style="transition-delay: 180ms;">
+            <h3>Get the answer</h3>
+            <p>
+              A local Qwen vision model works the problem out and streams the answer into a quiet
+              floating overlay.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= WHY LOCAL ============================= -->
+    <section class="section" id="why-local" style="padding-top: 40px;">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-eyebrow">Why local</p>
+          <h2 class="section-title">Your questions never need the cloud.</h2>
+          <p class="section-lede">
+            ArNega sends every capture to Ollama running on your own machine — that changes what
+            the product can promise.
+          </p>
+        </div>
+        <div class="features reveal">
+          <div class="feature">
+            <div class="f-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 1.5v13M11.5 4.5c0-1.1-1.57-2-3.5-2s-3.5.9-3.5 2 1.57 2 3.5 2 3.5.9 3.5 2-1.57 2-3.5 2-3.5-.9-3.5-2"></path></svg>
+            </div>
+            <h3>Zero API bill</h3>
+            <p>The model runs on your Mac. Ask a hundred questions a day — the cost is the same: nothing.</p>
+          </div>
+          <div class="feature">
+            <div class="f-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="9" rx="1.5"></rect><path d="M5.5 14.5h5M8 11.5v3"></path><circle cx="8" cy="7" r="2"></circle></svg>
+            </div>
+            <h3>Screen aware</h3>
+            <p>Understands screenshots as a whole — text, code, diagrams, tables, and charts in context.</p>
+          </div>
+          <div class="feature">
+            <div class="f-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5 2.5 3.8v3.4c0 3.4 2.3 6 5.5 7.3 3.2-1.3 5.5-3.9 5.5-7.3V3.8L8 1.5Z"></path><path d="M5.8 7.8 7.4 9.4l3-3"></path></svg>
+            </div>
+            <h3>Private by design</h3>
+            <p>Screen analysis goes to local Ollama at 127.0.0.1 — not to a paid model API. No accounts, no telemetry.</p>
+          </div>
+          <div class="feature">
+            <div class="f-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="2"></rect><path d="M10.5 6.5v2h-4"></path><path d="m8 7-1.5 1.5L8 10"></path></svg>
+            </div>
+            <h3>One-key workflow</h3>
+            <p>Enter triggers capture, analysis, and the answer when ArNega is focused. Esc hides it instantly.</p>
+          </div>
+          <div class="feature">
+            <div class="f-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="2.2"></circle><path d="M8 1.5a6.5 6.5 0 0 1 6.5 6.5M14.5 8A6.5 6.5 0 0 1 8 14.5M8 14.5A6.5 6.5 0 0 1 1.5 8M1.5 8A6.5 6.5 0 0 1 8 1.5" stroke-dasharray="2.6 2.6"></path></svg>
+            </div>
+            <h3>Reasoning model</h3>
+            <p>Tuned for a local vision-thinking model that works through math, code, and logic before answering.</p>
+          </div>
+          <div class="feature">
+            <div class="f-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="5.5" r="2.5"></circle><path d="M2.5 13.5c.7-2.4 2.9-4 5.5-4s4.8 1.6 5.5 4"></path><path d="m12.2 3 2.3 2.3M14.5 3l-2.3 2.3"></path></svg>
+            </div>
+            <h3>No account</h3>
+            <p>Download it and use it. Nothing to sign up for, nothing to sign in to, nothing to cancel.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ PRODUCT DEMO =========================== -->
+    <section class="section" id="demo">
+      <div class="container center">
+        <div class="reveal">
+          <p class="section-eyebrow">In practice</p>
+          <h2 class="section-title">The same keystroke, on real work.</h2>
+          <p class="section-lede" style="margin-bottom: 40px;">
+            Exams, debugging sessions, dense reports — if you can see it, you can ask about it.
+          </p>
+        </div>
+        <div class="reveal">
+          <ProductDemo client:visible />
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== LOCAL VS CLOUD ========================== -->
+    <section class="section" id="compare" style="padding-top: 32px;">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-eyebrow">Local vs cloud</p>
+          <h2 class="section-title">What running locally changes.</h2>
+          <p class="section-lede">
+            Cloud assistants vary — this is the general trade-off against typical subscription
+            services.
+          </p>
+        </div>
+        <div class="compare reveal">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">ArNega</th>
+                <th scope="col">Typical cloud AI assistant</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Recurring subscription</th>
+                <td class="yes">No</td>
+                <td class="no">Commonly required</td>
+              </tr>
+              <tr>
+                <th scope="row">Paid API key</th>
+                <td class="yes">No</td>
+                <td class="no">Often needed for full use</td>
+              </tr>
+              <tr>
+                <th scope="row">Where inference runs</th>
+                <td><strong>On your Mac</strong></td>
+                <td class="no">Provider servers</td>
+              </tr>
+              <tr>
+                <th scope="row">Screen capture processing</th>
+                <td><strong>On device, via local Ollama</strong></td>
+                <td class="no">Uploaded for processing</td>
+              </tr>
+              <tr>
+                <th scope="row">Account required</th>
+                <td class="yes">No</td>
+                <td class="no">Usually</td>
+              </tr>
+              <tr>
+                <th scope="row">Question limits</th>
+                <td><strong>None</strong> — bounded only by your hardware</td>
+                <td class="no">Plan quotas / rate limits are common</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== REQUIREMENTS ============================ -->
+    <section class="section tight" id="requirements">
+      <div class="container">
+        <div class="reveal">
+          <p class="section-eyebrow">System requirements</p>
+          <h2 class="section-title">Built for Apple Silicon.</h2>
+        </div>
+        <div class="req-grid reveal">
+          <div class="req">
+            <div class="req-label">Operating system</div>
+            <div class="req-value">macOS 12+</div>
+            <div class="req-sub">Apple Silicon (M-series). Intel and Windows: coming later.</div>
+          </div>
+          <div class="req">
+            <div class="req-label">Memory</div>
+            <div class="req-value">16 GB recommended</div>
+            <div class="req-sub">for the default 8B vision model with comfortable headroom.</div>
+          </div>
+          <div class="req">
+            <div class="req-label">Disk</div>
+            <div class="req-value">~6 GB for the model</div>
+            <div class="req-sub">one-time download through Ollama, stored locally.</div>
+          </div>
+        </div>
+        <p class="req-note reveal">
+          Local models use your Mac’s RAM and GPU while answering — that’s the trade for keeping
+          everything on device. ArNega keeps the model warm between questions and releases it
+          after a while of inactivity.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= DOWNLOAD ============================== -->
+    <section class="section" id="download">
+      <div class="container">
+        <div class="download-panel reveal">
+          <div class="version-chip"><span class="dot"></span> v{VERSION} · latest release</div>
+          <h2 class="section-title" style="margin-bottom: 10px;">Get ArNega for your Mac.</h2>
+          <p class="section-lede" style="margin: 0 auto 30px;">
+            Free to download. Runs entirely on your machine.
+          </p>
+          <div class="hero-ctas" style="margin-bottom: 0;">
+            <a class="btn btn-primary" href={links.primaryDmg}>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M8 2v8.5M4.5 7.5 8 11l3.5-3.5M2.5 13.5h11"></path>
+              </svg>
+              Download for Apple Silicon
+            </a>
+          </div>
+          <div class="download-links">
+            <a class="link-accent" href={links.releases} target="_blank" rel="noopener">View releases</a>
+            <a class="link-accent" href={links.source} target="_blank" rel="noopener">View source</a>
+            <a class="link-accent" href={links.checksums} target="_blank" rel="noopener">SHA-256 checksums</a>
+          </div>
+          <p class="download-note">
+            This release is not yet notarized with Apple. If macOS blocks the first launch, use
+            the approval steps in the <a class="link-accent" href="#setup">setup guide</a> — no
+            security settings need to be disabled.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================== SETUP =============================== -->
+    <section class="section" id="setup">
+      <div class="container">
+        <div class="reveal center">
+          <p class="section-eyebrow">Setup</p>
+          <h2 class="section-title">Running in four steps.</h2>
+        </div>
+        <div class="setup-steps">
+          <div class="setup-step reveal">
+            <div class="setup-num">1</div>
+            <div class="setup-body">
+              <h3>Download ArNega</h3>
+              <p>
+                Grab the DMG, drag ArNega into Applications, and open it. If macOS warns that the
+                app isn’t verified (it’s an unsigned build), open <strong>System Settings →
+                Privacy&nbsp;&amp;&nbsp;Security</strong> and choose <strong>Open Anyway</strong> —
+                that approves just this app, nothing else.
+              </p>
+            </div>
+          </div>
+          <div class="setup-step reveal">
+            <div class="setup-num">2</div>
+            <div class="setup-body">
+              <h3>Install Ollama</h3>
+              <p>
+                Ollama is the free app that runs AI models locally.
+                <a class="link-accent" href={OLLAMA_URL} target="_blank" rel="noopener">
+                  Download it from ollama.com</a> and open it once.
+              </p>
+            </div>
+          </div>
+          <div class="setup-step reveal">
+            <div class="setup-num">3</div>
+            <div class="setup-body">
+              <h3>Download the local model</h3>
+              <p>
+                ArNega offers this in-app the first time, or run the command below. It’s a
+                one-time download of about 6 GB.
+              </p>
+              <span class="code">ollama pull {MODEL}</span>
+            </div>
+          </div>
+          <div class="setup-step reveal">
+            <div class="setup-num">4</div>
+            <div class="setup-body">
+              <h3>Press Enter</h3>
+              <p>
+                Summon ArNega with <strong>⌘⇧Space</strong>, look at whatever you’re stuck on, and
+                press Enter. macOS will ask once for Screen Recording permission — that’s how
+                ArNega sees the screen.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================ FAQ ================================ -->
+    <section class="section" id="faq" style="padding-top: 40px;">
+      <div class="container">
+        <div class="reveal center">
+          <p class="section-eyebrow">FAQ</p>
+          <h2 class="section-title">Fair questions.</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details class="faq-item">
+            <summary>
+              Is ArNega really free?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              Yes. Normal screen answering runs locally through Ollama and does not require a paid
+              model API, a subscription, or an account. Your only costs are your Mac’s disk space
+              and electricity.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Does ArNega require an API key?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              No. There isn’t even a place to enter one — ArNega has no cloud AI integration to
+              configure.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Does my screenshot go to OpenAI or Anthropic?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              No. During normal operation captures are processed in memory and sent only to Ollama
+              on your own machine at <code>127.0.0.1:11434</code>. ArNega’s application code
+              contains no cloud AI endpoints.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Why does it need Screen Recording permission?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              macOS requires that permission for any app that captures the screen — it’s the
+              mechanism behind “see it”. ArNega requests nothing else: no microphone, camera,
+              contacts, or location.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Does it work offline?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              Once Ollama and the model are installed, inference itself runs locally and works
+              without a connection. You’ll need network for the initial downloads (the app, Ollama,
+              and the model) and for optional links like release notes.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              How powerful does my Mac need to be?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              Any Apple Silicon Mac can run it; 16 GB of unified memory is recommended for the
+              default 8B model. While answering, the model uses several GB of RAM and the GPU — on
+              an M-series Mac answers typically start streaming within seconds. Smaller local
+              vision models can be selected in Settings for tighter machines.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Is the answer always correct?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              No. Local AI models make mistakes, especially on ambiguous screenshots or hard
+              problems. ArNega is built to reason carefully, but treat it as a fast first opinion —
+              not an oracle.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Is ArNega invisible during screen sharing?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              No guarantee. ArNega uses supported macOS privacy controls (window content
+              protection) to reduce its appearance in ordinary screen capture where available, but
+              macOS capture behavior varies by version and capture method — assume the overlay may
+              be visible to capture software.
+            </p>
+          </details>
+          <details class="faq-item">
+            <summary>
+              Is ArNega intended for bypassing exam or proctoring rules?
+              <svg class="faq-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 2v12M2 8h12"></path></svg>
+            </summary>
+            <p class="faq-answer">
+              No. ArNega is a general screen productivity and learning assistant. You are
+              responsible for following the rules that apply to you — exams, interviews, workplace
+              policies, and confidentiality obligations. See our
+              <a class="link-accent" href="responsible-use">responsible use</a> page.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer home />
+</Base>

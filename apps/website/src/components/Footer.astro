@@ -1,0 +1,50 @@
+---
+import Logo from './Logo.astro';
+import { FOOTER_PAGES, links, VERSION, withBase } from '../lib/site';
+
+interface Props {
+  home?: boolean;
+}
+const { home = true } = Astro.props;
+const anchor = (a: string): string => (home ? a : withBase('') + a);
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <Logo size={24} />
+          ArNega
+        </div>
+        <p class="footer-tagline">
+          Local screen intelligence for macOS. See it. Press Enter. Get the answer.
+        </p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href={anchor('#how-it-works')}>How it works</a>
+          <a href={anchor('#download')}>Download</a>
+          <a href={anchor('#setup')}>Setup</a>
+          <a href={anchor('#faq')}>FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Project</h4>
+          <a href={links.source} target="_blank" rel="noopener">GitHub</a>
+          <a href={links.releases} target="_blank" rel="noopener">Releases</a>
+          <a href={links.checksums} target="_blank" rel="noopener">Checksums</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          {FOOTER_PAGES.map((p) => <a href={withBase(p.href)}>{p.label}</a>)}
+        </div>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>© {year} ArNega. Free to download.</span>
+      <span>v{VERSION} · macOS Apple Silicon</span>
+    </div>
+  </div>
+</footer>
