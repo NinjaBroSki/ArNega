@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 import {
   tokensPerSecond,
   type ChatDelta,
@@ -11,6 +14,7 @@ import { BrandSymbol } from '../components/BrandSymbol';
 import { CheckIcon, CloseIcon, CopyIcon, GearIcon, StopIcon } from '../components/Icons';
 import { useAppStatus } from '../hooks/useAppStatus';
 import { formatDuration } from '../lib/format';
+import { normalizeMathDelimiters } from '../lib/math';
 import { SetupCard } from './SetupCard';
 
 interface GenState {
@@ -254,12 +258,13 @@ export function OverlayApp(): React.JSX.Element {
           ) : (
             <div className="answer-md" aria-live="polite">
               <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm, remarkMath]}
+                rehypePlugins={[[rehypeKatex, { throwOnError: false, errorColor: '#f07f7f' }]]}
                 components={{
                   a: ({ children }) => <a>{children}</a>,
                 }}
               >
-                {gen.answer}
+                {normalizeMathDelimiters(gen.answer)}
               </ReactMarkdown>
               {gen.phase === 'answering' && <span className="stream-caret" aria-hidden="true" />}
             </div>

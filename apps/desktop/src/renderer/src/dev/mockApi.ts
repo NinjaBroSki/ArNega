@@ -59,6 +59,14 @@ $$\\sum_{n=1}^{\\infty} \\frac{1}{n^2}$$
 
 The partial sums on your screen (1.6350 at n=100) are consistent with convergence to **π²/6**, so the answer to select is **B**.`;
 
+const MATH_ANSWER = `**$\\frac{dy}{dx} = 2x \\ln x + x$**
+
+Using the product rule on \\( y = x^2 \\ln x \\):
+
+\\[ \\frac{dy}{dx} = 2x \\cdot \\ln x + x^2 \\cdot \\frac{1}{x} = 2x \\ln x + x \\]
+
+You can factor it as $x(2\\ln x + 1)$ if the answer sheet prefers that form.`;
+
 type Scenario = string;
 
 function makeStatus(scenario: Scenario): AppStatus {
@@ -154,7 +162,13 @@ export function installMockApi(): void {
   const api: ArnegaApi = {
     solve: async () => {
       const text =
-        scenario === 'answer-code' ? CODE_ANSWER : scenario === 'answer-long' ? LONG_ANSWER : SHORT_ANSWER;
+        scenario === 'answer-code'
+          ? CODE_ANSWER
+          : scenario === 'answer-long'
+            ? LONG_ANSWER
+            : scenario === 'answer-math'
+              ? MATH_ANSWER
+              : SHORT_ANSWER;
       playStream(text, scenario === 'answer-fail');
       return { ok: true, requestId };
     },

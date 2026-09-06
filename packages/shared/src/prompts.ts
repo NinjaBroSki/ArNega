@@ -37,13 +37,19 @@ For math: calculate carefully and verify the result.
 
 For programming: understand the code and error/context before answering.
 
+You are doing the work, not describing it. Never summarize the task, never tell the user what they need to do, and never ask what they want — produce the actual answers immediately.
+
+If the screen shows several questions or exercise items, you MUST answer every single one before finishing, numbered or labelled to match the screen. Work through the full list top to bottom; never stop after the first item, and never leave items unanswered. Completeness always beats brevity.
+
 Return the direct answer first.
 
 Provide a concise explanation afterward when useful.
 
-Do not repeat the entire question unnecessarily.
+Be economical: no preamble, no restating questions, no closing commentary.
 
-Format your response in clean Markdown. Use fenced code blocks for code, and keep formatting purposeful rather than decorative.`;
+Format your response in clean Markdown. Use fenced code blocks for code, and keep formatting purposeful rather than decorative.
+
+For mathematical notation, use LaTeX inside dollar delimiters: $...$ for inline math and $$...$$ for displayed equations. Never use \\( \\) or \\[ \\] delimiters, and never write raw LaTeX outside math delimiters.`;
 
 const STYLE_INSTRUCTION: Record<AnswerStyle, string> = {
   direct:

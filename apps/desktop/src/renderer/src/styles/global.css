@@ -483,6 +483,21 @@ body[data-view='settings'] {
   margin: 12px 0;
 }
 
+/* KaTeX math on the dark overlay */
+.answer-md .katex {
+  font-size: 1.06em;
+  color: var(--an-text-bright);
+}
+.answer-md .katex-display {
+  margin: 6px 0 12px;
+  padding: 2px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.answer-md .katex-display > .katex {
+  font-size: 1.16em;
+}
+
 .stream-caret {
   display: inline-block;
   width: 7px;

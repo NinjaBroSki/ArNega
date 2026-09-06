@@ -1,6 +1,6 @@
 {
   "name": "arnega-monorepo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "ArNega — local screen question-answering assistant for macOS. See it. Press Enter. Get the answer.",
   "type": "module",
