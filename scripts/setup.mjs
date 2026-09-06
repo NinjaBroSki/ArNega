@@ -12,7 +12,7 @@ import { execSync, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 
 const REQUIRED_NODE_MAJOR = 20;
-const DEFAULT_MODEL = 'qwen3-vl:8b-thinking-q4_K_M';
+const DEFAULT_MODEL = 'qwen3-vl:8b-instruct';
 const OLLAMA_URL = 'http://127.0.0.1:11434';
 
 const ok = (msg) => console.log(`  ✓ ${msg}`);

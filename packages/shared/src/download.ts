@@ -9,7 +9,7 @@
 export type Arch = 'arm64';
 export type MacArtifactKind = 'dmg' | 'zip';
 
-/** `owner/repo`, e.g. "gollapally/ArNega". */
+/** `owner/repo`, e.g. "NinjaBroSki/ArNega". */
 export type RepoSlug = string;
 
 const GITHUB = 'https://github.com';

@@ -31,7 +31,7 @@ question, a paragraph you don't understand. ArNega is already open. You press **
 
 1. ArNega captures the relevant display (hiding itself first, so it never appears in its own screenshot).
 2. The capture is optimized in memory and sent to **Ollama on `127.0.0.1`** — never to a cloud API.
-3. A local vision-reasoning model (default: `qwen3-vl:8b-thinking-q4_K_M`) works the problem out.
+3. A local vision-reasoning model (default: `qwen3-vl:8b-instruct`) works the problem out.
 4. The answer streams into a quiet, translucent overlay. **Esc** hides it. **⌘⇧Space** brings it back anywhere.
 
 No prompt typing. No copy-paste. No per-question bill.
@@ -40,7 +40,7 @@ No prompt typing. No copy-paste. No per-question bill.
 
 - **One-key workflow** — Enter captures, reads, reasons, and answers (only while ArNega is focused; it never hijacks Enter globally).
 - **Local inference only** — the app's only AI endpoint is `http://127.0.0.1:11434`. There is no API-key screen because there is nothing to put one in.
-- **Reasoning model** — uses the model's thinking channel for hard problems, and shows you only the useful answer.
+- **Reasoning when you want it** — fast, direct answers by default; the Detailed answer style enables the model's deep-thinking channel (on models that support it) and still shows you only the useful answer.
 - **Screen-aware** — handles text, code, diagrams, tables, charts, and answer choices; tuned prompts watch for negation, units, and constraint wording.
 - **Streamed answers** with Markdown, code formatting, selectable text, one-click copy, and cancel.
 - **Minimal by design** — a compact glass overlay that grows with the answer, plus a small native settings window.
@@ -66,7 +66,7 @@ Intel Macs and Windows are not supported yet (the architecture keeps them possib
 3. **Install Ollama** from [ollama.com/download](https://ollama.com/download) and open it once.
 4. **Get the model** — ArNega offers the one-time ~6 GB download in-app, or run:
    ```bash
-   ollama pull qwen3-vl:8b-thinking-q4_K_M
+   ollama pull qwen3-vl:8b-instruct
    ```
 5. **Grant Screen Recording permission** when macOS asks on your first Enter — that's how ArNega sees the screen. (It requests nothing else: no microphone, camera, contacts, or location.)
 
@@ -88,10 +88,11 @@ Verify downloads against `SHA256SUMS.txt` attached to every release.
               │
               ▼
    POST http://127.0.0.1:11434/api/chat   ← the only AI endpoint
-   { model, system prompt, screenshot, think: true, keep_alive: 30m }
+   { model, system prompt, screenshot, keep_alive: 30m,
+     think: only for the Detailed answer style }
               │
               ▼
-   stream: thinking (hidden) → answer tokens → overlay (Markdown)
+   stream: (hidden thinking, if any) → answer tokens → overlay (Markdown)
 ```
 
 The main-process pipeline lives in [`apps/desktop/src/main`](apps/desktop/src/main); the pure logic

@@ -102,7 +102,10 @@ export async function runSolve(): Promise<SolveResult> {
     timings.captureMs = ms();
 
     emit({ requestId, type: 'phase', phase: 'sending' });
-    const think = await modelSupportsThinking(settings.model);
+    // Deep reasoning only when the user asked for it: thinking editions spend
+    // many seconds on hidden chain-of-thought before the first visible token.
+    const think =
+      settings.answerStyle === 'detailed' && (await modelSupportsThinking(settings.model));
     timings.requestSentMs = ms();
 
     let sawThinking = false;

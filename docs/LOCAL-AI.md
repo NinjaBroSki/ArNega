@@ -4,13 +4,13 @@ ArNega runs all AI inference on your Mac through [Ollama](https://ollama.com). T
 
 This document explains the model choice, the exact Ollama API usage, how streaming and the thinking channel work, and how to tune performance.
 
-## Why qwen3-vl:8b-thinking-q4_K_M
+## Why qwen3-vl:8b-instruct
 
-The default model is `qwen3-vl:8b-thinking-q4_K_M` (`DEFAULT_MODEL` in `packages/shared/src/config.ts`). It was chosen because screen question-answering needs three things at once:
+The default model is `qwen3-vl:8b-instruct` (`DEFAULT_MODEL` in `packages/shared/src/config.ts`). It was chosen because screen question-answering needs three things at once:
 
 - **Vision.** The model receives a JPEG of your screen, not extracted text, so it must be genuinely multimodal.
 - **OCR-grade reading.** Screens are dense: small UI text, code, tables, charts, math notation. The Qwen3-VL family reads on-screen text well for its size.
-- **Reasoning.** Many screen questions (math problems, multiple choice, code errors) benefit from the model working through the problem before answering. The `thinking` variant emits a separate reasoning channel that ArNega uses for exactly this (see below).
+- **Speed you can feel.** The Enter workflow lives or dies on time-to-first-visible-token. The **Instruct** edition starts answering as soon as the image is processed. The `-thinking` edition of the same model spends a long hidden reasoning phase (often 10–30+ seconds on laptop hardware) before its first visible token — measurably better on genuinely hard problems, but far too slow as a default. ArNega therefore defaults to Instruct and reserves deep thinking for the **Detailed** answer style on models that support it (see below).
 
 The `8b` parameter count at `q4_K_M` quantization is roughly a 6 GB download and fits comfortably in 16 GB of unified memory alongside the app, Ollama's KV cache, and your other software. Larger models answer better but do not leave that headroom; smaller vision models misread screens noticeably more often. The defaults (`keep_alive`, `num_ctx` below) are tuned for a 16 GB Apple Silicon machine.
 
@@ -30,9 +30,9 @@ The chat request body (`chatStream` in `ollama.ts`):
 
 ```json
 {
-  "model": "qwen3-vl:8b-thinking-q4_K_M",
+  "model": "qwen3-vl:8b-instruct",
   "stream": true,
-  "think": true,
+  "think": false,
   "keep_alive": "30m",
   "options": {
     "num_ctx": 8192,
@@ -52,13 +52,13 @@ The chat request body (`chatStream` in `ollama.ts`):
 Details:
 
 - The system prompt and the short user instruction come from `packages/shared/src/prompts.ts`. The user never types a prompt in the default Enter flow; the app supplies a fixed instruction plus the selected answer style (`direct` / `normal` / `detailed`).
-- `think` is set per model by `modelSupportsThinking`: true when `/api/show` lists a `thinking` capability, with a fallback to checking whether the model name contains `thinking`.
+- `think` is true only when the **Detailed** answer style is selected *and* the model supports thinking (`modelSupportsThinking`: `/api/show` lists a `thinking` capability, with a name-contains-`thinking` fallback). Direct and Normal styles always send `think: false` for speed. Caveat: dedicated `-thinking` model editions ignore `think: false` and reason anyway — if you want fast answers, use an Instruct edition; the thinking editions are for deliberate deep-reasoning sessions.
 - `keep_alive` and `num_ctx` come from settings (defaults `"30m"` and `8192`); `temperature` is fixed at `0.2` (`DEFAULT_TEMPERATURE`) — screen answers should be precise, not creative.
 - Cancellation uses an `AbortController` wired to the overlay's Cancel button; aborting resolves the stream quietly.
 
 ## The thinking channel: parsed, never rendered
 
-With `think: true`, thinking-capable models stream two channels: `message.thinking` (internal reasoning) and `message.content` (the visible answer). ArNega's policy:
+When thinking is active (Detailed style on a thinking-capable model, or a dedicated `-thinking` edition that always reasons), models stream two channels: `message.thinking` (internal reasoning) and `message.content` (the visible answer). ArNega's policy:
 
 - Both channels are **parsed** (`parseChatLine` in `packages/shared/src/ollama-parser.ts` returns `{ content, thinking, done }` deltas).
 - Thinking text is **never displayed and never forwarded to the renderer**. In `apps/desktop/src/main/solve.ts`, the first thinking delta only flips the overlay's phase indicator to "thinking" so the user knows the model is working; the thinking text itself is dropped. Only `content` deltas are broadcast to the overlay.
@@ -80,7 +80,7 @@ The same pattern (`NdjsonBuffer` + `parsePullLine`) handles `/api/pull` progress
 The default model is a one-time ~6 GB download that ArNega never starts without your approval. Two equivalent paths:
 
 - **In-app:** when Ollama is running but the model is missing, the overlay offers the download. Accepting calls `POST /api/pull` with streamed progress — status text, percent, and byte counts are shown live, and the download can be cancelled (`apps/desktop/src/main/status.ts`). When the pull finishes, the app re-probes and warms the model up.
-- **CLI:** run `ollama pull qwen3-vl:8b-thinking-q4_K_M` in a terminal. ArNega polls `/api/tags` and picks the model up automatically once it is installed.
+- **CLI:** run `ollama pull qwen3-vl:8b-instruct` in a terminal. ArNega polls `/api/tags` and picks the model up automatically once it is installed.
 
 Either way the model is stored and managed by Ollama, not by ArNega.
 

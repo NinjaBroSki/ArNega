@@ -87,7 +87,7 @@ PUBLIC_BASE_PATH: /<repo>/
 They flow into two places:
 
 - `apps/website/astro.config.mjs` reads `PUBLIC_SITE_URL` and `PUBLIC_BASE_PATH` into Astro's `site` and `base`. Locally they default to `http://localhost:4321` and `/`, so `dev`/`preview` work at the root path with no setup.
-- `apps/website/src/lib/site.ts` reads `PUBLIC_ARNEGA_REPO` into `REPO_SLUG`, falling back to `DEFAULT_REPO_SLUG` from `packages/shared/src/config.ts` (currently `gollapally/ArNega`). The fallback exists only so local previews render working links; deployed builds always use the injected slug, so a fork's Pages deployment automatically points at the fork's own releases.
+- `apps/website/src/lib/site.ts` reads `PUBLIC_ARNEGA_REPO` into `REPO_SLUG`, falling back to `DEFAULT_REPO_SLUG` from `packages/shared/src/config.ts` (currently `NinjaBroSki/ArNega`). The fallback exists only so local previews render working links; deployed builds always use the injected slug, so a fork's Pages deployment automatically points at the fork's own releases.
 
 Everything else derives from those values:
 

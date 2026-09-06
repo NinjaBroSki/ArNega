@@ -137,7 +137,7 @@ const structuredData = {
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="2.2"></circle><path d="M8 1.5a6.5 6.5 0 0 1 6.5 6.5M14.5 8A6.5 6.5 0 0 1 8 14.5M8 14.5A6.5 6.5 0 0 1 1.5 8M1.5 8A6.5 6.5 0 0 1 8 1.5" stroke-dasharray="2.6 2.6"></path></svg>
             </div>
             <h3>Reasoning model</h3>
-            <p>Tuned for a local vision-thinking model that works through math, code, and logic before answering.</p>
+            <p>Quick, direct answers by default — with a deeper step-by-step reasoning mode when you choose it.</p>
           </div>
           <div class="feature">
             <div class="f-icon">
@@ -412,9 +412,11 @@ const structuredData = {
             </summary>
             <p class="faq-answer">
               Any Apple Silicon Mac can run it; 16 GB of unified memory is recommended for the
-              default 8B model. While answering, the model uses several GB of RAM and the GPU — on
-              an M-series Mac answers typically start streaming within seconds. Smaller local
-              vision models can be selected in Settings for tighter machines.
+              default 8B model. While answering, the model uses several GB of RAM and the GPU.
+              Speed scales with model size: on an M-series Mac the default 8B model typically
+              starts streaming its answer in roughly ten seconds, while the smaller Qwen3-VL
+              4B/2B Instruct models can be selected in Settings for markedly faster answers on
+              any machine.
             </p>
           </details>
           <details class="faq-item">

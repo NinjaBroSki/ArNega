@@ -63,8 +63,8 @@ export function SettingsApp(): React.JSX.Element {
               <div className="row-text">
                 <div className="row-title">Local vision model</div>
                 <div className="row-sub">
-                  Runs through Ollama on this Mac. {displayModelName(DEFAULT_MODEL)} (8B, thinking)
-                  is the recommended default.
+                  Runs through Ollama on this Mac. {displayModelName(DEFAULT_MODEL)} 8B Instruct is
+                  the recommended default — smaller models answer faster, larger ones read better.
                 </div>
               </div>
               <select
@@ -102,7 +102,8 @@ export function SettingsApp(): React.JSX.Element {
               <div className="row-text">
                 <div className="row-title">How much explanation</div>
                 <div className="row-sub">
-                  Direct gives just the answer; Detailed walks through the reasoning.
+                  Direct gives just the answer; Detailed reasons step by step (and enables deep
+                  thinking on models that support it — slower, but more careful).
                 </div>
               </div>
               <div className="segmented" role="group" aria-label="Answer style">

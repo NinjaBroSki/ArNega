@@ -337,6 +337,11 @@ body[data-view='settings'] {
   color: var(--an-text-2);
 }
 
+.phase-elapsed {
+  color: var(--an-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
 .aurora-line {
   width: 120px;
   height: 2px;

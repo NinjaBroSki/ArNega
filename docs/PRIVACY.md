@@ -87,7 +87,7 @@ Complete contents:
 | Key | What it is |
 |---|---|
 | `schemaVersion` | Settings format version (currently `1`) |
-| `model` | Selected Ollama model name (default `qwen3-vl:8b-thinking-q4_K_M`) |
+| `model` | Selected Ollama model name (default `qwen3-vl:8b-instruct`) |
 | `answerStyle` | `direct` / `normal` / `detailed` |
 | `screenshotQuality` | `fast` / `balanced` / `high` |
 | `globalShortcut` | Show/hide accelerator (default `CommandOrControl+Shift+Space`) |
@@ -140,7 +140,7 @@ Note on `/api/pull`: ArNega's request goes to your local Ollama server, but
 Ollama itself then downloads the model (~6 GB, one time) from its registry
 over the internet. That download is performed by Ollama, not ArNega, and only
 happens when you explicitly start it — in-app or via
-`ollama pull qwen3-vl:8b-thinking-q4_K_M`.
+`ollama pull qwen3-vl:8b-instruct`.
 
 ### External URLs — user click only, opened in your default browser
 

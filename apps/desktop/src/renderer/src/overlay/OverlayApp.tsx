@@ -74,6 +74,8 @@ export function OverlayApp(): React.JSX.Element {
   const { status, refresh } = useAppStatus();
   const [gen, setGen] = useState<GenState>(IDLE_GEN);
   const [copied, setCopied] = useState(false);
+  const [elapsedS, setElapsedS] = useState(0);
+  const genStartRef = useRef<number>(0);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -92,6 +94,7 @@ export function OverlayApp(): React.JSX.Element {
         case 'phase':
           setGen((prev) => {
             if (event.phase === 'capturing') {
+              genStartRef.current = Date.now();
               return { phase: 'capturing', answer: '' };
             }
             if (event.phase === 'cancelled') {
@@ -171,6 +174,19 @@ export function OverlayApp(): React.JSX.Element {
 
   useEffect(() => {
     if (busy) stickToBottom.current = true;
+  }, [busy]);
+
+  // Live elapsed indicator while working — local models can take a while on
+  // dense screens, and a ticking count reads as progress instead of a hang.
+  useEffect(() => {
+    if (!busy) {
+      setElapsedS(0);
+      return;
+    }
+    const timer = setInterval(() => {
+      setElapsedS(Math.round((Date.now() - genStartRef.current) / 1000));
+    }, 500);
+    return () => clearInterval(timer);
   }, [busy]);
 
   // --- content-driven window resizing --------------------------------------
@@ -255,7 +271,10 @@ export function OverlayApp(): React.JSX.Element {
     body = (
       <div className="busy" ref={contentRef}>
         <div className="aurora-line" />
-        <div className="phase">{PHASE_LABEL[gen.phase] ?? 'Working…'}</div>
+        <div className="phase">
+          {PHASE_LABEL[gen.phase] ?? 'Working…'}
+          {elapsedS >= 3 && <span className="phase-elapsed"> {elapsedS}s</span>}
+        </div>
       </div>
     );
   } else if (setup && (setup.state !== 'ready' || permissionBlocked) && setupCard) {

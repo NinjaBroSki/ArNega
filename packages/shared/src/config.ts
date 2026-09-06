@@ -8,8 +8,17 @@
 /** Loopback Ollama endpoint. ArNega never sends inference anywhere else. */
 export const OLLAMA_HOST = 'http://127.0.0.1:11434';
 
-/** Default local vision + reasoning model. */
-export const DEFAULT_MODEL = 'qwen3-vl:8b-thinking-q4_K_M';
+/**
+ * Default local vision model. The instruct edition answers immediately —
+ * the "-thinking" edition reasons (hidden) for many seconds before the first
+ * visible token, which feels slow in an Enter-to-answer workflow. Users who
+ * want deep reasoning can install a thinking model and pick the Detailed
+ * answer style.
+ */
+export const DEFAULT_MODEL = 'qwen3-vl:8b-instruct';
+
+/** The optional deep-reasoning sibling of the default model. */
+export const THINKING_MODEL = 'qwen3-vl:8b-thinking-q4_K_M';
 
 /**
  * How long Ollama keeps the model resident after a request, so repeated
@@ -41,7 +50,7 @@ export const MODEL_INFO_URL = 'https://ollama.com/library/qwen3-vl';
  * website always points at the correct release URLs. Update this constant if
  * you want local `npm run dev:website` previews to show your real links.
  */
-export const DEFAULT_REPO_SLUG = 'gollapally/ArNega';
+export const DEFAULT_REPO_SLUG = 'NinjaBroSki/ArNega';
 
 /** Request timeout (ms) for quick Ollama health/list probes. */
 export const OLLAMA_PROBE_TIMEOUT_MS = 2500;

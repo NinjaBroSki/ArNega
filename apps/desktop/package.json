@@ -6,7 +6,7 @@
   "description": "ArNega — local screen question-answering assistant. See it. Press Enter. Get the answer.",
   "main": "./out/main/index.js",
   "author": "ArNega",
-  "homepage": "https://github.com/gollapally/ArNega",
+  "homepage": "https://github.com/NinjaBroSki/ArNega",
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
