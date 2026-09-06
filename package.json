@@ -1,0 +1,35 @@
+{
+  "name": "arnega-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ArNega — local screen question-answering assistant for macOS. See it. Press Enter. Get the answer.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "typecheck": "npm run typecheck -w @arnega/shared && npm run typecheck -w @arnega/branding && npm run typecheck -w @arnega/desktop && npm run typecheck -w @arnega/website",
+    "lint": "eslint .",
+    "test": "npm run test -w @arnega/shared && npm run test -w @arnega/desktop",
+    "build": "npm run build:website && npm run build:desktop",
+    "build:website": "npm run build -w @arnega/website",
+    "build:desktop": "npm run build -w @arnega/desktop",
+    "dist:desktop": "npm run dist -w @arnega/desktop",
+    "dev:desktop": "npm run dev -w @arnega/desktop",
+    "dev:website": "npm run dev -w @arnega/website",
+    "gen:icons": "node scripts/generate-icons.mjs",
+    "check": "npm run typecheck && npm run lint && npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "eslint": "^9.18.0",
+    "sharp": "^0.35.4",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  }
+}

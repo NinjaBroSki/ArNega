@@ -1,0 +1,38 @@
+{
+  "name": "@arnega/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "productName": "ArNega",
+  "description": "ArNega — local screen question-answering assistant. See it. Press Enter. Get the answer.",
+  "main": "./out/main/index.js",
+  "author": "ArNega",
+  "homepage": "https://github.com/gollapally/ArNega",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test": "vitest run",
+    "dist": "electron-vite build && electron-builder --mac --arm64",
+    "dist:dir": "electron-vite build && electron-builder --mac --arm64 --dir"
+  },
+  "dependencies": {
+    "@arnega/branding": "*",
+    "@arnega/shared": "*",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^4.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^7.0.0",
+    "vitest": "^2.1.8"
+  }
+}

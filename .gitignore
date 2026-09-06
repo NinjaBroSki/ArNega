@@ -1,0 +1,62 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+out/
+build-output/
+.astro/
+apps/website/dist/
+apps/desktop/out/
+apps/desktop/dist/
+packages/*/dist/
+
+# Electron packaging output
+release/
+apps/desktop/release/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test / coverage
+coverage/
+.vitest/
+*.lcov
+
+# Environment & secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.mobileprovision
+*.cer
+*.certSigningRequest
+build/entitlements.local.*
+.notarize.json
+apple_credentials*
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.recommended.json
+*.swp
+Thumbs.db
+
+# Caches
+.eslintcache
+.turbo/
+.cache/
+
+# Generated icon intermediates (source SVGs are committed; rasterized sets are generated)
+packages/branding/assets/generated/
+apps/desktop/build/icon.iconset/

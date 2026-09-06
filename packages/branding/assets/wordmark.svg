@@ -1,0 +1,21 @@
+<svg width="640" height="160" viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ArNega">
+  <defs>
+    <linearGradient id="wm-aurora" x1="66" y1="60" x2="106" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6CA8FF"/>
+      <stop offset="1" stop-color="#7CE3CE"/>
+    </linearGradient>
+    <linearGradient id="wm-fill" x1="80" y1="24" x2="80" y2="136" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1C222E"/>
+      <stop offset="1" stop-color="#0D1017"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="24" y="24" width="112" height="112" rx="29" fill="url(#wm-fill)"/>
+  <rect x="24.75" y="24.75" width="110.5" height="110.5" rx="28.25" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="1.5" fill="none"/>
+  <g stroke="url(#wm-aurora)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M99 60 V78 Q99 85.5 91.5 85.5 H63.5"/>
+    <path d="M74.5 73.5 L61.5 85.5 L74.5 97.5"/>
+  </g>
+
+  <text x="168" y="106" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-2.5" fill="#F5F7FA">ArNega</text>
+</svg>

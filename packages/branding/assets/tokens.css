@@ -1,0 +1,71 @@
+/*
+ * ArNega design tokens — CSS mirror of ../src/tokens.ts.
+ * Keep both files in sync when changing the brand.
+ */
+:root {
+  /* Surfaces */
+  --an-ink-0: #07080b;
+  --an-ink-1: #0c0e13;
+  --an-ink-2: #12151c;
+  --an-ink-3: #1a1e27;
+  --an-ink-4: #232937;
+
+  /* Typography colors */
+  --an-text-bright: #f5f7fa;
+  --an-text: #e7ebf1;
+  --an-text-2: #a8b1be;
+  --an-text-3: #69707e;
+
+  /* Accent family */
+  --an-ion: #6ca8ff;
+  --an-ion-bright: #93c1ff;
+  --an-ion-deep: #3d74d9;
+  --an-mint: #7ce3ce;
+
+  /* Lines & fills */
+  --an-border: rgba(255, 255, 255, 0.08);
+  --an-border-strong: rgba(255, 255, 255, 0.14);
+  --an-fill: rgba(255, 255, 255, 0.04);
+  --an-fill-hover: rgba(255, 255, 255, 0.07);
+
+  /* Status */
+  --an-ok: #5bd6a2;
+  --an-warn: #f0c674;
+  --an-danger: #f07f7f;
+
+  /* Signature gradient */
+  --an-aurora: linear-gradient(135deg, #6ca8ff 0%, #7ce3ce 100%);
+  --an-aurora-soft: linear-gradient(135deg, rgba(108, 168, 255, 0.16) 0%, rgba(124, 227, 206, 0.1) 100%);
+
+  /* Type stacks (system fonts only) */
+  --an-font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Inter,
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --an-font-text: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Inter, Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --an-font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono',
+    'Roboto Mono', monospace;
+
+  /* Radii */
+  --an-r-xs: 6px;
+  --an-r-sm: 10px;
+  --an-r-md: 14px;
+  --an-r-lg: 18px;
+  --an-r-xl: 24px;
+  --an-r-overlay: 16px;
+  --an-r-keycap: 9px;
+
+  /* Shadows */
+  --an-shadow-overlay: 0 18px 60px rgba(0, 0, 0, 0.55), 0 2px 10px rgba(0, 0, 0, 0.35);
+  --an-shadow-popover: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --an-shadow-keycap: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 -1px 0 rgba(0, 0, 0, 0.4) inset,
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  --an-shadow-glow: 0 0 24px rgba(108, 168, 255, 0.35);
+
+  /* Motion */
+  --an-t-fast: 120ms;
+  --an-t-base: 220ms;
+  --an-t-slow: 420ms;
+  --an-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --an-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --an-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+}

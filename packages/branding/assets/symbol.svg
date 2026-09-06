@@ -1,0 +1,32 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ArNega symbol">
+  <defs>
+    <linearGradient id="an-aurora" x1="87" y1="85" x2="172" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6CA8FF"/>
+      <stop offset="1" stop-color="#7CE3CE"/>
+    </linearGradient>
+    <linearGradient id="an-cap-fill" x1="128" y1="28" x2="128" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1C222E"/>
+      <stop offset="1" stop-color="#0D1017"/>
+    </linearGradient>
+    <linearGradient id="an-cap-rim" x1="128" y1="28" x2="128" y2="228" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="0.4" stop-color="#FFFFFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.02"/>
+    </linearGradient>
+    <filter id="an-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="11"/>
+    </filter>
+  </defs>
+
+  <rect x="28" y="28" width="200" height="200" rx="52" fill="url(#an-cap-fill)"/>
+  <rect x="29.5" y="29.5" width="197" height="197" rx="50.5" stroke="url(#an-cap-rim)" stroke-width="3" fill="none"/>
+
+  <g filter="url(#an-glow)" opacity="0.5" stroke="url(#an-aurora)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M169 85 V123 Q169 140 152 140 H92"/>
+    <path d="M116 114 L87 140 L116 167"/>
+  </g>
+  <g stroke="url(#an-aurora)" stroke-width="19" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M169 85 V123 Q169 140 152 140 H92"/>
+    <path d="M116 114 L87 140 L116 167"/>
+  </g>
+</svg>
