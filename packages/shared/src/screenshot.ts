@@ -79,3 +79,16 @@ export function computeResizeTarget(
 export function presetFor(quality: ScreenshotQuality): ScreenshotPreset {
   return SCREENSHOT_PRESETS[quality] ?? SCREENSHOT_PRESETS[DEFAULT_SCREENSHOT_QUALITY];
 }
+
+/**
+ * Preset for interactive region snips (Shift+Enter). Regions are small, so
+ * they usually pass through at native resolution — bounded only if the user
+ * drags a huge area — and encode at high JPEG quality for sharp glyphs.
+ */
+export const SNIP_PRESET: ScreenshotPreset = {
+  id: 'balanced',
+  label: 'Snip',
+  description: 'Native-resolution region capture.',
+  maxLongEdge: 1680,
+  jpegQuality: 0.92,
+};

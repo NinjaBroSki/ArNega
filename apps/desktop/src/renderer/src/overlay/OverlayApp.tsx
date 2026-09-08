@@ -132,26 +132,31 @@ export function OverlayApp(): React.JSX.Element {
   }, []);
 
   // --- keyboard ------------------------------------------------------------
-  const ask = useCallback(() => {
-    if (!status || status.setup.state !== 'ready') {
-      void refresh();
-      return;
-    }
-    if (busy) return;
-    setCopied(false);
-    void window.arnega.solve().then((result) => {
-      if (!result.ok && result.error) {
-        // e.g. not ready — the setup card explains what's going on
-        console.warn('solve rejected:', result.error);
+  const ask = useCallback(
+    (mode: 'full' | 'region' = 'full') => {
+      if (!status || status.setup.state !== 'ready') {
+        void refresh();
+        return;
       }
-    });
-  }, [status, busy, refresh]);
+      if (busy) return;
+      setCopied(false);
+      void window.arnega.solve(mode).then((result) => {
+        if (!result.ok && result.error) {
+          // e.g. not ready — the setup card explains what's going on
+          console.warn('solve rejected:', result.error);
+        }
+      });
+    },
+    [status, busy, refresh],
+  );
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
-      if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+      if (e.key === 'Enter' && !e.metaKey && !e.ctrlKey && !e.altKey) {
         e.preventDefault();
-        ask();
+        // Shift+Enter: drag-select just the problem — far fewer image tokens
+        // (seconds instead of tens of seconds) and sharper text for the model.
+        ask(e.shiftKey ? 'region' : 'full');
       } else if (e.key === 'Escape') {
         e.preventDefault();
         void window.arnega.hideWindow();
@@ -290,7 +295,10 @@ export function OverlayApp(): React.JSX.Element {
         <div className="prompt">
           Press <span className="enter-key">↵</span> to ask about your screen
         </div>
-        <div className="sub">ArNega reads the screen and answers locally — nothing leaves your Mac.</div>
+        <div className="sub">
+          <span className="kbd">⇧↵</span> snip a region — fastest and sharpest. Everything stays on
+          your Mac.
+        </div>
       </div>
     );
   }
@@ -341,7 +349,7 @@ export function OverlayApp(): React.JSX.Element {
               <span style={{ marginLeft: 6 }}>{copied ? 'Copied' : 'Copy'}</span>
             </button>
             <span className="hint">
-              <span className="kbd">↵</span> Ask again
+              <span className="kbd">↵</span> Ask again · <span className="kbd">⇧↵</span> Snip
             </span>
           </>
         ) : (

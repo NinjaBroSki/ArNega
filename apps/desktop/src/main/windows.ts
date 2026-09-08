@@ -155,11 +155,23 @@ export function getOverlayWindow(): BrowserWindow | null {
   return overlayWindow && !overlayWindow.isDestroyed() ? overlayWindow : null;
 }
 
+/**
+ * Called every time the overlay is shown (launch, global shortcut, dock,
+ * second instance). index.ts registers a throttled model warm-up here so the
+ * weights start loading while the user is still reading their screen, instead
+ * of blocking their first token after Enter.
+ */
+let overlayShownHook: (() => void) | null = null;
+export function setOverlayShownHook(fn: () => void): void {
+  overlayShownHook = fn;
+}
+
 export function showOverlay(): void {
   const win = getOverlayWindow() ?? createOverlayWindow();
   win.show();
   win.focus();
   win.webContents.send(IPC.windowShown);
+  overlayShownHook?.();
 }
 
 export function hideOverlay(): void {

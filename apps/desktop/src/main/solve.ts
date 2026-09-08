@@ -8,12 +8,18 @@ import {
   DEFAULT_TEMPERATURE,
   IPC,
   SYSTEM_PROMPT,
+  type CaptureMode,
   type ChatDelta,
   type GenEvent,
   type GenTimings,
   type SolveResult,
 } from '@arnega/shared';
-import { captureDisplay, targetDisplayForCapture, type CaptureResult } from './capture.js';
+import {
+  captureDisplay,
+  captureRegionInteractive,
+  targetDisplayForCapture,
+  type CaptureResult,
+} from './capture.js';
 import { chatStream, modelSupportsThinking } from './ollama.js';
 import { loadSettings } from './settings-store.js';
 import { currentStatus, refreshSetup } from './status.js';
@@ -63,7 +69,7 @@ function friendlyError(raw: string): string {
   return raw;
 }
 
-export async function runSolve(): Promise<SolveResult> {
+export async function runSolve(mode: CaptureMode = 'full'): Promise<SolveResult> {
   if (inflight) {
     return { ok: false, error: 'Already answering — cancel first or wait for it to finish.' };
   }
@@ -95,7 +101,17 @@ export async function runSolve(): Promise<SolveResult> {
     const restore = HIDE_DURING_CAPTURE ? hideWindowsForCapture() : null;
     try {
       if (restore) await sleep(CAPTURE_SETTLE_MS);
-      capture = await captureDisplay(display, settings.screenshotQuality);
+      if (mode === 'region') {
+        const snip = await captureRegionInteractive();
+        if (!snip) {
+          // user pressed Esc in the crosshair UI — end quietly
+          emit({ requestId, type: 'phase', phase: 'cancelled' });
+          return { ok: true, requestId };
+        }
+        capture = snip;
+      } else {
+        capture = await captureDisplay(display, settings.screenshotQuality);
+      }
     } finally {
       restore?.();
     }

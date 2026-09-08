@@ -13,7 +13,13 @@ import { readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
-import { computeResizeTarget, presetFor, type ScreenshotQuality } from '@arnega/shared';
+import {
+  computeResizeTarget,
+  presetFor,
+  SNIP_PRESET,
+  type ScreenshotPreset,
+  type ScreenshotQuality,
+} from '@arnega/shared';
 import { pickTargetDisplay, type Rect } from './display.js';
 
 const execFileAsync = promisify(execFile);
@@ -38,7 +44,10 @@ export function targetDisplayForCapture(overlayBounds: Rect | null) {
 }
 
 function optimize(image: Electron.NativeImage, quality: ScreenshotQuality): CaptureResult {
-  const preset = presetFor(quality);
+  return optimizeWithPreset(image, presetFor(quality));
+}
+
+function optimizeWithPreset(image: Electron.NativeImage, preset: ScreenshotPreset): CaptureResult {
   const size = image.getSize();
   if (size.width === 0 || size.height === 0) {
     throw new Error('Captured image was empty');
@@ -94,6 +103,38 @@ async function captureViaScreencaptureCli(
     const buffer = await readFile(tmpFile);
     const image = nativeImage.createFromBuffer(buffer);
     const result = optimize(image, quality);
+    return { ...result, method: 'screencapture' };
+  } finally {
+    await rm(tmpFile, { force: true }).catch(() => {});
+  }
+}
+
+/**
+ * Interactive region capture ("snip"): the macOS crosshair selection UI via
+ * `screencapture -i -s`. Small regions pass through at native Retina
+ * resolution, which is both far fewer image tokens than a full-screen shot
+ * and sharper for the model to read. Returns null if the user cancels (Esc).
+ */
+export async function captureRegionInteractive(): Promise<CaptureResult | null> {
+  const tmpFile = join(tmpdir(), `arnega-snip-${randomBytes(8).toString('hex')}.png`);
+  try {
+    try {
+      await execFileAsync('/usr/sbin/screencapture', ['-i', '-s', '-x', '-t', 'png', tmpFile], {
+        timeout: 120_000,
+      });
+    } catch {
+      // screencapture exits non-zero on some cancel paths; fall through to
+      // the file check, which is the reliable cancel signal.
+    }
+    let buffer: Buffer;
+    try {
+      buffer = await readFile(tmpFile);
+    } catch {
+      return null; // user pressed Esc — no file was written
+    }
+    if (buffer.byteLength === 0) return null;
+    const image = nativeImage.createFromBuffer(buffer);
+    const result = optimizeWithPreset(image, SNIP_PRESET);
     return { ...result, method: 'screencapture' };
   } finally {
     await rm(tmpFile, { force: true }).catch(() => {});

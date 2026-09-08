@@ -38,7 +38,7 @@ No prompt typing. No copy-paste. No per-question bill.
 
 ## Features
 
-- **One-key workflow** — Enter captures, reads, reasons, and answers (only while ArNega is focused; it never hijacks Enter globally).
+- **One-key workflow** — Enter captures, reads, reasons, and answers (only while ArNega is focused; it never hijacks Enter globally). **Shift+Enter snips a region** — drag-select just the problem for the fastest and most accurate answers.
 - **Local inference only** — the app's only AI endpoint is `http://127.0.0.1:11434`. There is no API-key screen because there is nothing to put one in.
 - **Reasoning when you want it** — fast, direct answers by default; the Detailed answer style enables the model's deep-thinking channel (on models that support it) and still shows you only the useful answer.
 - **Screen-aware** — handles text, code, diagrams, tables, charts, and answer choices; tuned prompts watch for negation, units, and constraint wording.

@@ -10,6 +10,7 @@ import {
   type AppStatus,
   type ArnegaApi,
   type ArNegaSettings,
+  type CaptureMode,
   type ExternalLinkTarget,
   type GenEvent,
   type SetupStatus,
@@ -24,7 +25,7 @@ function subscribe<T>(channel: string, cb: (payload: T) => void): () => void {
 }
 
 const api: ArnegaApi = {
-  solve: () => ipcRenderer.invoke(IPC.solve) as Promise<SolveResult>,
+  solve: (mode?: CaptureMode) => ipcRenderer.invoke(IPC.solve, mode) as Promise<SolveResult>,
   cancel: () => ipcRenderer.invoke(IPC.cancel) as Promise<void>,
   getStatus: () => ipcRenderer.invoke(IPC.getStatus) as Promise<AppStatus>,
   refreshStatus: () => ipcRenderer.invoke(IPC.refreshStatus) as Promise<AppStatus>,

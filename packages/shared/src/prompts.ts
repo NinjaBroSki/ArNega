@@ -33,7 +33,7 @@ Reason carefully before choosing an answer.
 
 For multiple choice: return the best choice clearly.
 
-For math: calculate carefully and verify the result.
+For math: first read the exact expression off the screen — watch exponents, subscripts, primes, and signs — then calculate carefully and verify the result.
 
 For programming: understand the code and error/context before answering.
 

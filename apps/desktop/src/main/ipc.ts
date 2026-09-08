@@ -89,7 +89,11 @@ function sanitizeSettingsUpdate(payload: unknown): Partial<ArNegaSettings> {
 }
 
 export function registerIpcHandlers(): void {
-  handle<SolveResult>(IPC.solve, () => runSolve());
+  // Validate the capture mode at the boundary: anything but the literal
+  // 'region' falls back to a full-display capture.
+  handle<SolveResult>(IPC.solve, (_event, payload) =>
+    runSolve(payload === 'region' ? 'region' : 'full'),
+  );
 
   handle(IPC.cancel, () => {
     cancelGeneration();

@@ -11,7 +11,7 @@ import { loadSettings } from './settings-store.js';
 import { applyGlobalShortcut, unregisterAllShortcuts } from './shortcuts.js';
 import { isGenerating } from './solve.js';
 import { currentStatus, isDownloadingModel, refreshSetup, warmUp } from './status.js';
-import { createOverlayWindow, showOverlay } from './windows.js';
+import { createOverlayWindow, setOverlayShownHook, showOverlay } from './windows.js';
 
 const STATUS_POLL_MS = 20_000;
 
@@ -42,6 +42,18 @@ if (!app.requestSingleInstanceLock()) {
     if (currentStatus().state === 'ready') {
       void warmUp();
     }
+
+    // Re-warm whenever the overlay is summoned (throttled): keep_alive may
+    // have expired since the last question, and reloading during "user is
+    // reading the screen" time beats reloading after they press Enter.
+    let lastWarmAt = 0;
+    setOverlayShownHook(() => {
+      const now = Date.now();
+      if (now - lastWarmAt < 60_000) return;
+      if (isGenerating() || isDownloadingModel()) return;
+      lastWarmAt = now;
+      if (currentStatus().state === 'ready') void warmUp();
+    });
 
     setInterval(() => {
       if (isGenerating() || isDownloadingModel()) return;

@@ -91,8 +91,11 @@ export type GenEvent =
  * The API surface the preload script exposes to the renderer as
  * `window.arnega`. Event subscribers return an unsubscribe function.
  */
+/** How the screen is captured for a question. */
+export type CaptureMode = 'full' | 'region';
+
 export interface ArnegaApi {
-  solve(): Promise<SolveResult>;
+  solve(mode?: CaptureMode): Promise<SolveResult>;
   cancel(): Promise<void>;
   getStatus(): Promise<AppStatus>;
   refreshStatus(): Promise<AppStatus>;
